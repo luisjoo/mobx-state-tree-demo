@@ -1,10 +1,8 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {observer} from 'mobx-react'
 import styles from '../styles'
 import ToDoListContainer from "./to-do-list-container";
 
-@observer
 export default class ToDoDisplayComponent extends React.Component {
     constructor(props) {
         super(props);
