@@ -7,12 +7,9 @@ import {TO_DO_STATE} from "../utils";
 
 export default class ToDoComponent extends React.Component {
     onCheckDone = () => {
-
     };
 
     onGoToDetails = () => {
-        const {item} = this.props;
-        item.toggleState();
     };
 
     render = () => {

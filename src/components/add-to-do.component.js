@@ -1,8 +1,6 @@
 import React from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native'
 import styles from '../styles';
-import ToDoStore from '../stores/to-do.store';
-import {getRandNumber} from "../utils";
 
 export default class AddToDoComponent extends React.Component {
     constructor(props) {
@@ -19,16 +17,7 @@ export default class AddToDoComponent extends React.Component {
     });
 
     addToDo = () => {
-        const {title, description} = this.state;
 
-        const obj = {
-            title,
-            description,
-            id: getRandNumber(),
-        };
-
-        ToDoStore.addTodo(obj);
-        setTimeout(this.clearInputs, 200);
     };
 
     clearInputs = () => {
