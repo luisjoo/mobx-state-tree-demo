@@ -15,6 +15,7 @@ export default class ToDoListContainer extends React.Component {
             date={item.date}
             title={item.title}
             state={item.state}
+            description={item.description}
         />
     );
 

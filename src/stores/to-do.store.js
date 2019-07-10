@@ -1,4 +1,4 @@
-import {types} from 'mobx-state-tree';
+import {types, destroy} from 'mobx-state-tree';
 import ToDo from '../models/to-do.model';
 import {getRandNumber, TO_DO_FILTER} from "../utils";
 
@@ -28,6 +28,9 @@ const ToDoStore = types.model('ToDoStore', {
         },
         setFilter(filter) {
             self.Filter = filter;
+        },
+        removeToDo(toDo) {
+            destroy(toDo);
         }
     }))
     .create({

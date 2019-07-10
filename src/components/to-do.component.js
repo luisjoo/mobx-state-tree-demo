@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import style from '../styles';
 import {TO_DO_STATE} from "../utils";
+import ToDoStore from "../stores/to-do.store";
 
 export default class ToDoComponent extends React.Component {
     onToggleState = () => {
@@ -16,6 +17,12 @@ export default class ToDoComponent extends React.Component {
         const {item} = this.props;
 
         item.setDeleted();
+    };
+
+    removeToDo = () => {
+        const {item} = this.props;
+
+        ToDoStore.removeToDo(item);
     };
 
     renderNotDeleted = () => {
@@ -48,13 +55,22 @@ export default class ToDoComponent extends React.Component {
         const {state} = this.props;
         if (state === TO_DO_STATE.DELETED) {
             return (
-                <TouchableOpacity onPress={this.onToggleState}>
-                    <Icon
-                        size={20}
-                        color={style.colors.blue.color}
-                        name="reload1"
-                    />
-                </TouchableOpacity>
+                <React.Fragment>
+                    <TouchableOpacity onPress={this.onToggleState}>
+                        <Icon
+                            size={20}
+                            color={style.colors.blue.color}
+                            name="reload1"
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={this.removeToDo}>
+                        <Icon
+                            size={20}
+                            color={style.colors.blue.color}
+                            name="delete"
+                        />
+                    </TouchableOpacity>
+                </React.Fragment>
             );
         }
 
@@ -62,7 +78,7 @@ export default class ToDoComponent extends React.Component {
     };
 
     render = () => {
-        const {title, date} = this.props;
+        const {title, date, description} = this.props;
 
         return (
             <View style={_style.container}>
@@ -71,6 +87,9 @@ export default class ToDoComponent extends React.Component {
                         <Text style={style.textStyle}>
                             {title}
                         </Text>
+                    </View>
+                    <View>
+                        <Text>{description}</Text>
                     </View>
                     <View style={[style.marginVertical5, style.size16]}>
                         <Text style={style.textStyle}>
@@ -105,6 +124,7 @@ const _style = StyleSheet.create({
 
 ToDoComponent.propTypes = {
     date: PropTypes.string.isRequired,
+    description: PropTypes.any,
     id: PropTypes.string.isRequired,
     item: PropTypes.object.isRequired,
     state: PropTypes.string.isRequired,
