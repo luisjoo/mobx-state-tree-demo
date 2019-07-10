@@ -1,37 +1,33 @@
+import PropTypes from 'prop-types'
 import React from 'react';
 import {Text, View} from 'react-native';
-import {observer} from 'mobx-react'
 import styles from '../styles'
 import ToDoListContainer from "./to-do-list-container";
+import ToDoStore from '../stores/to-do.store';
+import {observer} from 'mobx-react'
+import ToDoFilterComponent from "./to-do-filter.component";
 
 @observer
-export default class ToDoDisplayComponent extends React.Component {
+class ToDoDisplayComponent extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            ToDoList: [],
-        };
+        this.state = {};
     }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
 
     render = () => {
-        const {ToDoList} = this.state;
 
         return (
             <View style={styles.whiteContainer}>
                 <View>
                     <Text style={[styles.textStyle, styles.title]}>ALL TO DOs</Text>
                 </View>
+
+                <ToDoFilterComponent/>
+
                 <View>
                     <ToDoListContainer
-                        toDoList={ToDoList}
+                        toDoStore={ToDoStore}
                     />
                 </View>
             </View>
@@ -39,3 +35,12 @@ export default class ToDoDisplayComponent extends React.Component {
     }
 }
 
+ToDoDisplayComponent.propTypes = {
+    toDoStore: PropTypes.any.isRequired
+};
+
+ToDoDisplayComponent.defaultProps = {
+    toDoStore: {}
+};
+
+export default ToDoDisplayComponent;
