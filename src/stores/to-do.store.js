@@ -24,12 +24,19 @@ class ToDoStore {
 
         if (index === -1) return null;
 
-        if (state === TO_DO_STATE.COMPLETE)
-            newState = TO_DO_STATE.UN_COMPLETE;
-        else
+        if (state === TO_DO_STATE.UN_COMPLETE)
             newState = TO_DO_STATE.COMPLETE;
+        else
+            newState = TO_DO_STATE.UN_COMPLETE;
 
         this.ToDoList[index].state = newState;
+    };
+
+    @action
+    deleteTodo = (todo) => {
+        const index = this.ToDoList.indexOf(todo);
+
+        this.ToDoList[index].state = TO_DO_STATE.DELETED;
     };
 
     @action
