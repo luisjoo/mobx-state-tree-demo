@@ -13,18 +13,61 @@ export default class ToDoComponent extends React.Component {
         ToDoStore.toggleState(item, item.state);
     };
 
-    onGoToDetails = () => {
+    setDeleted = () => {
+        const {item} = this.props;
+
+        ToDoStore.deleteTodo(item);
+    };
+
+    renderNotDeleted = () => {
+        const {state} = this.props;
+        if (state === TO_DO_STATE.DELETED)
+            return null;
+
+        return (
+            <React.Fragment>
+                <TouchableOpacity onPress={this.onToggleState}>
+                    <Icon
+                        size={20}
+                        color={style.colors.blue.color}
+                        name={state === TO_DO_STATE.COMPLETE ? "minuscircle" : "pluscircle"}
+                    />
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={this.setDeleted}>
+                    <Icon
+                        size={20}
+                        color={style.colors.blue.color}
+                        name="swap"
+                    />
+                </TouchableOpacity>
+            </React.Fragment>
+        )
+    };
+
+    renderDeleted = () => {
+        const {state} = this.props;
+        if (state === TO_DO_STATE.DELETED) {
+            return (
+                <TouchableOpacity onPress={this.onToggleState}>
+                    <Icon
+                        size={20}
+                        color={style.colors.blue.color}
+                        name="reload1"
+                    />
+                </TouchableOpacity>
+            );
+        }
+
+        return null;
     };
 
     render = () => {
-        const {title, date, state} = this.props;
+        const {title, date} = this.props;
 
         return (
             <View style={_style.container}>
-                <TouchableOpacity
-                    style={_style.principalData}
-                    onPress={this.onGoToDetails}
-                >
+                <View style={_style.principalData}>
                     <View style={[style.marginVertical5, style.size16]}>
                         <Text style={style.textStyle}>
                             {title}
@@ -35,17 +78,11 @@ export default class ToDoComponent extends React.Component {
                             {date}
                         </Text>
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[_style.state, style.center]}
-                    onPress={this.onToggleState}
-                >
-                    <Icon
-                        size={25}
-                        color={style.colors.blue.color}
-                        name={state === TO_DO_STATE.COMPLETE ? "minussquareo" : "plussquareo"}
-                    />
-                </TouchableOpacity>
+                </View>
+                <View style={[_style.state, style.center]}>
+                    {this.renderNotDeleted()}
+                    {this.renderDeleted()}
+                </View>
             </View>
         )
     }
