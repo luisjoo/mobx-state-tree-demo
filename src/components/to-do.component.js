@@ -110,6 +110,8 @@ const _style = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderColor: '#00618f'
     },
     principalData: {
         width: '85%',
