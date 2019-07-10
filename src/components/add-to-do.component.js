@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native'
 import styles from '../styles';
+import ToDoStore from '../stores/to-do.store';
 
 export default class AddToDoComponent extends React.Component {
     constructor(props) {
@@ -17,7 +18,8 @@ export default class AddToDoComponent extends React.Component {
     });
 
     addToDo = () => {
-
+        ToDoStore.addTodo(this.state);
+        this.clearInputs();
     };
 
     clearInputs = () => {

@@ -6,8 +6,7 @@ import {observer} from "mobx-react";
 
 @observer
 class ToDoFilterComponent extends React.Component {
-    onSetFilter = (filter) =>
-        ToDoStore.setFilter(filter);
+    onSetFilter = (filter) => ToDoStore.setFilter(filter);
 
     render = () => {
         const {Filter} = ToDoStore;

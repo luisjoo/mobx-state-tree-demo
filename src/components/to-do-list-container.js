@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react';
-import {FlatList} from 'react-native';
 import ToDoComponent from "./to-do.component";
+import {observer} from "mobx-react";
 
+@observer
 export default class ToDoListContainer extends React.Component {
     keyExtractor = (item) => item.id + item.title;
 
-    renderItem = ({item}) => (
+    renderItem = (item) => (
         <ToDoComponent
+            key={this.keyExtractor(item)}
             item={item}
             id={item.id}
             date={item.date}
@@ -16,24 +18,23 @@ export default class ToDoListContainer extends React.Component {
         />
     );
 
-    render = () => {
+    renderList = () => {
         const {toDoList} = this.props;
 
-        return (
-            <FlatList
-                data={toDoList}
-                renderItem={this.renderItem}
-                keyExtractor={this.keyExtractor}
-                extraData={this.props}
-            />
-        )
-    }
+        return toDoList.map(this.renderItem)
+    };
+
+    render = () => (
+        <React.Fragment>
+            {this.renderList()}
+        </React.Fragment>
+    );
 }
 
 ToDoListContainer.propTypes = {
-    toDoList: PropTypes.array.isRequired
+    toDoList: PropTypes.any.isRequired
 };
 
 ToDoListContainer.defaultProps = {
-    toDoList: []
+    toDoList: {}
 };

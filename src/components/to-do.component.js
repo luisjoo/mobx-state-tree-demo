@@ -6,13 +6,16 @@ import style from '../styles';
 import {TO_DO_STATE} from "../utils";
 
 export default class ToDoComponent extends React.Component {
-    onCheckDone = () => {
+    onToggleState = () => {
+        const {item} = this.props;
+
+        item.toggleState();
     };
 
     setDeleted = () => {
         const {item} = this.props;
 
-        ToDoStore.deleteTodo(item);
+        item.setDeleted();
     };
 
     renderNotDeleted = () => {
